@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucas Huang Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: one narrow column, a ledger-style project list with a figures strip per project. */
+:root {
+  --bg: #0c0a10;
+  --surface: #14111a;
+  --fg: #eeeaf3;
+  --muted: #9a93a8;
+  --line: #262130;
+  --accent: #a67bf0;
+  --accent-ink: #0c0a10;
+  --accent-soft: #231a36;
+  color-scheme: dark;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 16px/1.6 var(--font-body);
+  padding-block: 40px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.label { font: 500 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+header { display: flex; flex-direction: column; gap: 20px; }
+.avatar { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; display: block;
+  border: 2px solid var(--accent); box-shadow: 0 0 0 6px var(--accent-soft), 0 0 40px rgba(181, 124, 255, .25); }
+body { background-image: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(130, 80, 210, .14), transparent 70%); background-repeat: no-repeat; }
+.status { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+  background: var(--accent-soft); color: var(--accent); padding: 6px 12px; border-radius: 999px;
+  font: 500 13px/1.2 var(--font-mono); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+h1 { font-size: clamp(2.4rem, 8vw, 3.8rem); letter-spacing: -.02em; }
+.role { font: 500 clamp(1.1rem, 3vw, 1.35rem)/1.4 var(--font-display); color: var(--muted); margin: 0; }
+.intro { max-width: 60ch; margin: 0; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 8px;
+  font: 500 15px/1 var(--font-body); text-decoration: none; border: 1px solid var(--line); color: var(--fg); background: var(--surface); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn:hover { border-color: var(--accent); }
+
+section { display: flex; flex-direction: column; gap: 20px; }
+section > h2 { font-size: 1.5rem; }
+
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.project h3 { font-size: 1.3rem; }
+.project p { margin: 0; color: var(--muted); max-width: 62ch; }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.fig { padding: 14px 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fig b { font: 600 1.5rem/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.fig span { font: 400 12px/1.4 var(--font-mono); color: var(--muted); }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.stack span { font: 400 12px/1 var(--font-mono); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; color: var(--muted); }
+
+.skills { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
+.skill { display: grid; grid-template-columns: 170px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.skill dt { font: 500 12px/1.6 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.skill dd { margin: 0; min-width: 0; }
+@media (max-width: 560px) { .skill { grid-template-columns: 1fr; gap: 4px; } .project { padding: 18px; } }
+
+.edu { display: flex; flex-direction: column; gap: 14px; }
+.edu div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.edu b { font-family: var(--font-display); font-weight: 600; }
+.edu span { color: var(--muted); font-size: 14px; }
+
+.contact { display: flex; flex-direction: column; gap: 10px; }
+.copy { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+.copy code { font: 400 15px/1.4 var(--font-mono); user-select: all; overflow-wrap: anywhere; min-width: 0; }
+.copy button { font: 500 13px/1 var(--font-body); min-height: 36px; padding: 0 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.copy button:hover { border-color: var(--accent); }
+footer { color: var(--muted); font: 400 12px/1.5 var(--font-mono); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <img class="avatar" src="avatar.jpg" width="132" height="132" alt="Photo de profil de Lucas Huang">
+    <span class="status">Disponible en alternance dès septembre 2027</span>
+    <h1>Lucas Huang</h1>
+    <p class="role">Étudiant en BUT Informatique, développeur de logiciels Windows</p>
+    <p class="intro">Je suis en 1re année de BUT Informatique à l'Université Paris-Est Créteil. J'ai écrit et publié deux logiciels Windows testés, et je cherche une alternance de développeur pour ma 2e année, en Île-de-France.</p>
+    <div class="links">
+      <a class="btn primary" href="https://github.com/obvSoul" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/lucas-h-aa792043b/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </header>
+
+  <section aria-labelledby="projets">
+    <span class="label">Projets</span>
+    <h2 id="projets">Ce que j'ai construit</h2>
+
+    <article class="project">
+      <h3>NEXUS</h3>
+      <p>Un logiciel Windows pour retrouver rapidement un fichier et voir ce qui occupe l'espace du disque. Il comprend un widget de recherche ouvert avec Alt+Espace et un installateur.</p>
+      <div class="figs">
+        <div class="fig"><b>1 M+</b><span>fichiers cherchés presque instantanément</span></div>
+        <div class="fig"><b>63 Mo</b><span>de mémoire utilisée</span></div>
+        <div class="fig"><b>206</b><span>tests automatiques</span></div>
+        <div class="fig"><b>8</b><span>versions publiées sur GitHub</span></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <h3>Campus Manager</h3>
+      <p>Une application Windows qui récupère automatiquement les cours universitaires en ligne et les range par matière. Elle ajoute une recherche, un suivi des devoirs et un widget sur le bureau, et les cours restent consultables hors ligne.</p>
+      <div class="figs">
+        <div class="fig"><b>127</b><span>fichiers classés automatiquement</span></div>
+        <div class="fig"><b>44</b><span>tests automatiques</span></div>
+        <div class="fig"><b>1</b><span>installateur Windows</span></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <h3>Infrastructure de test virtualisée</h3>
+      <p>Projet universitaire : installation et configuration de machines virtuelles Ubuntu et Debian sous Oracle VirtualBox, avec réseau, clonage et administration à distance. Le déploiement et la gestion des machines sont automatisés avec VBoxManage et Python.</p>
+      <div class="stack"><span>VirtualBox</span><span>Ubuntu</span><span>Debian</span><span>SSH</span><span>MobaXterm</span><span>VBoxManage</span><span>Python</span></div>
+    </article>
+  </section>
+
+  <section aria-labelledby="competences">
+    <span class="label">Compétences</span>
+    <h2 id="competences">Outils que j'utilise</h2>
+    <dl class="skills" style="margin:0">
+      <div class="skill"><dt>Langages</dt><dd>JavaScript, TypeScript, Python, C, C#, HTML5, CSS3</dd></div>
+      <div class="skill"><dt>Frameworks</dt><dd>Node.js, React, Electron, .NET, WPF</dd></div>
+      <div class="skill"><dt>Bases de données</dt><dd>SQL, SQLite</dd></div>
+      <div class="skill"><dt>Réseau</dt><dd>OPNsense, Proxmox VE, WireGuard, VLAN, DHCP, NAT, pare-feu, Cloudflare, Linux, SSH</dd></div>
+      <div class="skill"><dt>Outils</dt><dd>Git, GitHub, Visual Studio Code, Blender, SOLIDWORKS, Oracle VirtualBox, Claude Code</dd></div>
+      <div class="skill"><dt>Langues</dt><dd>Français (natif), anglais (courant), chinois (courant à l'oral)</dd></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="formation">
+    <span class="label">Formation</span>
+    <h2 id="formation">Parcours</h2>
+    <div class="edu">
+      <div><b>BUT Informatique</b><span>2026 – 2029 · Université Paris-Est Créteil</span></div>
+      <div><b>Baccalauréat général, Mathématiques et Sciences de l'ingénieur</b><span>2026 · Lycée Jean Macé, Vitry-sur-Seine</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="contact">
+    <span class="label">Contact</span>
+    <h2 id="contact">Me joindre</h2>
+    <div class="contact">
+      <div class="copy"><code id="mail">lucas.huang002@gmail.com</code><button type="button" data-target="mail">Copier</button></div>
+      <p style="margin:0;color:var(--muted)">Vitry-sur-Seine, Île-de-France</p>
+    </div>
+  </section>
+
+  <footer>© 2026 Lucas Huang</footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy button').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = document.getElementById(btn.dataset.target);
+    var done = function () { btn.textContent = 'Copié'; setTimeout(function () { btn.textContent = 'Copier'; }, 1500); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    };
+    try {
+      navigator.clipboard.writeText(el.textContent).then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+});
+</script>
+</body>
+</html>
